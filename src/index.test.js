@@ -90,8 +90,6 @@ testToggleTodo();
 
 console.log("toggle todo tests pass passed")
 
-
-
 const testTodos = () => {
   const stateBefore = [];
   const action = {
