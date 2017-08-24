@@ -1,36 +1,24 @@
-import React from 'react';
-import { setVisibilityFilter } from '../actions';
-import { connect } from 'react-redux';
-
-const FilterLink = ({
-    active,
-    children,
-    onClick
-}) => {
-    if( active ){
-        return <span>{children}</span>
+import React from 'react'
+import { NavLink } from 'react-router-dom';
+const isActiveFunc = (match, location) => {
+    let result = false;
+    if( match !== null ){
+        result = match.isExact
     }
+    return result;
+};
+const FilterLink = ({ filter, children }) => {
     return (
-        <a href="https://google.com"
-            onClick={ e => {
-                e.preventDefault();
-                onClick();
-            }}
+        <NavLink
+            to={ filter === "all" ? "" : filter }
+            isActive={isActiveFunc}
+            activeStyle={{
+                textDecoration: 'none',
+                color:'black'
+                }}
         >
-            {children}
-        </a>
-    );   
+        {children}
+        </NavLink>
+    );
 }
-
-const mapStateProps = (state, ownProps) => ({
-    active: ownProps.filter === state.visibilityFilter,
-});
-const mapDispatchkProps = (dispatch, ownProps) => ({
-    onClick(){ dispatch(setVisibilityFilter(ownProps.filter)) },
-});
-
-//the connect function creates a new component
-export default connect( 
-    mapStateProps,
-    mapDispatchkProps
-)(FilterLink);
+export default FilterLink;

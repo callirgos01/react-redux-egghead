@@ -2,27 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { toggleTodo } from '../actions';
 import Todo from './Todo';
-
-const getVisibleTodos = (
-    todos,
-    filter
-) => {
-    switch(filter){
-        case 'SHOW_ALL':
-            return todos;
-        case 'SHOW_ACTIVE':
-            return todos.filter(
-                t => !t.completed
-            );
-        case 'SHOW_COMPLETED':
-            return todos.filter(
-                t => t.completed
-            );
-        default:
-            return todos
-    }
-
-}
+import { withRouter } from 'react-router-dom'
+import { getVisibleTodos } from '../reducers'
 
 const VisibleTodoList = ({
   todos,
@@ -39,20 +20,15 @@ const VisibleTodoList = ({
   </ul>
 );
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state, { match }) => ({
     todos: getVisibleTodos(
-        state.todos,
-        state.visibilityFilter
+        state,
+        match.params.filter || "all"
     ),
 });
-const mapDispatchToProps = (dispatch) => ({
-    onTodoClick(id){
-        dispatch(toggleTodo(id))
-    },
-});
 
-export default connect(
+export default withRouter(connect(
     mapStateToProps,
-    mapDispatchToProps
-)(VisibleTodoList);
+    { onTodoClick: toggleTodo }
+)(VisibleTodoList));
 
