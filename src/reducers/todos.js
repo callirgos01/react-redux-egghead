@@ -23,7 +23,7 @@ const allIds = (state= [], action) => {
     }
 }
 
-const todos = combineReducers({ byId, allIds});
+const todos = combineReducers({ byId, allIds });
 
 export default todos;
 
@@ -32,7 +32,6 @@ const getAllTodos = (state) => {
 }
 
 export const getVisibleTodos = ( state, filter ) => {
-    console.log(state)
     const allTodos = getAllTodos(state);
     switch(filter){
         case 'all':
