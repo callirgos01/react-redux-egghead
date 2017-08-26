@@ -1,13 +1,20 @@
-import { v4 } from 'uuid';
-import { getIsFetching } from '../reducers';
+import { normalize } from 'normalizr';
+import * as schema from './schema';
+
 import * as api from '../api';
+import { getIsFetching } from '../reducers';
 
 //action creators
-export const addTodo = (text) => ({
-    type: 'ADD_TODO',
-    id:v4(),
-    text
-});
+export const addTodo = (text) => (dispatch) => 
+    api.addTodo(text).then(response => {
+        console.log( 
+            'normalize reponse'
+        )
+        dispatch({
+            type: 'ADD_TODO_SUCCESS',
+            response: normalize(response, schema.todo),
+        })
+    })
 
 export const toggleTodo = (id) => ({
     type:'TOGGLE_TODO',
@@ -28,7 +35,7 @@ export const fetchTodos = (filter) => (dispatch, getState) => {
             dispatch({
                 type: 'FETCH_TODO_SUCCESS',
                 filter,
-                response,
+                response:normalize(response, schema.arrayOfTodos),
             });
         },
         error => {

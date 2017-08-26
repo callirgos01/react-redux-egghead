@@ -24,9 +24,6 @@ const delay = (ms) =>
 
 export const fetchTodos = (filter) =>
   delay(500).then(() => {
-    if(Math.random()>0.5) {
-      throw new Error('BOOOOM!!!!');
-    }
     switch (filter) {
       case 'all':
         return fakeDatabase.todos;
@@ -39,4 +36,20 @@ export const fetchTodos = (filter) =>
     }
   });
 
-//https://www.callirgos.net/sickbeard/api/5e5caf283dc3be564c8ef3334199d15f/?cmd=episode&tvdbid=194751&season=4&episode=8&full_path=1
+export const addTodo = (text) =>
+  delay(500).then(() => {
+    const todo = {
+      id: v4(),
+      text,
+      completed: false,
+    };
+    fakeDatabase.todos.push(todo);
+    return todo;
+  });
+
+export const toggleTodo = (id) =>
+  delay(500).then(() => {
+    const todo = fakeDatabase.todos.find(t => t.id === id);
+    todo.completed = !todo.completed;
+    return todo;
+  });
