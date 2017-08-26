@@ -1,5 +1,7 @@
 import { v4 } from 'uuid';
+import { getIsFetching } from '../reducers';
 import * as api from '../api';
+
 //action creators
 export const addTodo = (text) => ({
     type: 'ADD_TODO',
@@ -12,15 +14,29 @@ export const toggleTodo = (id) => ({
     id
 });
 
-const receiveTodos = (filter, response) => ({
-    type: 'REVIEVE_TODOS',
-    filter,
-    response,
-});
-
 //async action creator
-export const fetchTodos = (filter) => 
-    api.fetchTodos(filter).then( response => 
-        receiveTodos(filter, response) 
+export const fetchTodos = (filter) => (dispatch, getState) => {
+    if( getIsFetching(getState(),filter)){
+        return Promise.resolve();
+    }
+    dispatch({
+        type: 'FETCH_TODO_REQUEST',
+        filter,
+    });
+    return api.fetchTodos(filter).then(
+        response => {
+            dispatch({
+                type: 'FETCH_TODO_SUCCESS',
+                filter,
+                response,
+            });
+        },
+        error => {
+            dispatch({
+                type: 'FETCH_TODO_FAILURE',
+                filter,
+                message: error.message|| 'something went wrong'
+            });
+        }
     );
-    
+};

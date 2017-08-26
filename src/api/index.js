@@ -24,6 +24,9 @@ const delay = (ms) =>
 
 export const fetchTodos = (filter) =>
   delay(500).then(() => {
+    if(Math.random()>0.5) {
+      throw new Error('BOOOOM!!!!');
+    }
     switch (filter) {
       case 'all':
         return fakeDatabase.todos;
@@ -35,3 +38,5 @@ export const fetchTodos = (filter) =>
         throw new Error(`Unknown filter: ${filter}`);
     }
   });
+
+//https://www.callirgos.net/sickbeard/api/5e5caf283dc3be564c8ef3334199d15f/?cmd=episode&tvdbid=194751&season=4&episode=8&full_path=1
