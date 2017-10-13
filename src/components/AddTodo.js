@@ -5,11 +5,23 @@ import { addTodo } from '../actions';
 let AddTodo = ({ dispatch }) =>{
     let input;
     return (
-        <div>
-            <input ref={node =>{
+        <div className="add-todo">
+            <input 
+                className="add-todo__input"
+                ref={node =>{
                     input = node;
-                }} />
-                <button onClick={() => {
+                }} 
+                placeholder = "new todo"
+                onKeyUp = {(e)=>{
+                    if(e.keyCode === 13) {
+                        if(input.value.trim()!=="") {
+                            dispatch(addTodo(input.value));
+                            input.value='';
+                }}}}
+                />
+                <button 
+                    className="add-todo__button"
+                    onClick={() => {
                     if(input.value.trim()!==""){
                         dispatch(addTodo(input.value));
                         input.value='';

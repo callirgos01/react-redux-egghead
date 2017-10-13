@@ -9,16 +9,14 @@ const isActiveFunc = (match, location) => {
 };
 const FilterLink = ({ filter, children }) => {
     return (
-        <NavLink
-            to={ filter === "all" ? "" : filter }
-            isActive={isActiveFunc}
-            activeStyle={{
-                textDecoration: 'none',
-                color:'black'
-                }}
-        >
-        {children}
-        </NavLink>
+            <NavLink 
+                className="filter_link"
+                to={ filter === "all" ? "" : filter }
+                isActive={isActiveFunc}
+                activeClassName="filter_link--active"
+            >
+            <span className={`filter__label--${children.toLowerCase()}`}> {children} </span>
+            </NavLink>
     );
 }
 export default FilterLink;

@@ -4,10 +4,10 @@ import AddTodo from './AddTodo';
 import VisibleTodoList from './VisibleTodoList';
 
 const App = () => 
-<div>
+<div className="todo-app">
     <AddTodo />
-    <Footer />
     <VisibleTodoList />
+    <Footer />
 </div>
 
 export default App;

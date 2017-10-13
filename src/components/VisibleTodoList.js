@@ -32,10 +32,12 @@ class VisibleTodoList extends Component {
         />
       );
     }
-    return <TodoList 
-            todos={todos} 
-            onTodoClick={toggleTodo} 
-          />;
+    return <div className="todo-list">
+              <TodoList
+              todos={todos} 
+              onTodoClick={toggleTodo} 
+              />
+            </div>
   }
 }
 const TodoList = ({
