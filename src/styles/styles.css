@@ -145,26 +145,3 @@
 .filter_link--active {
   color: #fff;
 }
-
-
-[class^="filter__label"]::before,
-.filter__label--all::after {
-  content: '';
-  position: absolute;
-  top: 5px;
-  left: 0;
-  background: #647380;
-  display: block;
-  width: 10px;
-  height: 10px;
-  border-radius: 5px;
-  box-shadow: 0 0 2px 1px rgba(0,0,0,0.2);
-}
-
-
-.filter__label--all {
-  padding-left: 10px;
-}
-.filter__label--all:after {
-  left: 5px;
-}
